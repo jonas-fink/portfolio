@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { clsx } from 'clsx';
 
 const links = [
     {
@@ -31,9 +30,11 @@ export default function NavLinks() {
                     <Link
                         key={link.name}
                         href={link.href}
-                        className={clsx('nav-link', {
-                            'nav-link-active': pathname === link.href,
-                        })}
+                        className={
+                            pathname === link.href
+                                ? 'nav-link-active'
+                                : 'nav-link'
+                        }
                     >
                         {link.name}
                     </Link>
