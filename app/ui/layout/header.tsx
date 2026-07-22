@@ -6,7 +6,7 @@ import NavLinks from './nav-links';
 
 const Header = () => {
     return (
-        <header className="flex w-full bg-bg border border-b border-border p-6 justify-between">
+        <header className="flex w-full bg-bg border border-b border-border p-6 justify-between fixed">
             <h1 className="font-bold">
                 <span className="text-accent">~/</span>jonasfink.dev
             </h1>

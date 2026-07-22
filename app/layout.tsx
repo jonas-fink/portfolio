@@ -7,6 +7,7 @@ import {
 } from 'next/font/google';
 import './ui/globals.css';
 import Header from './ui/layout/header';
+import Footer from './ui/layout/footer';
 
 const jetbrainsMono = JetBrains_Mono({
     subsets: ['latin'],
@@ -51,9 +52,14 @@ export default function RootLayout({
             data-font="jetbrains-mono"
             className={`${fontVars} h-full antialiased`}
         >
-            <body className="min-h-full flex flex-col">
+            <body className="flex flex-col">
                 <Header />
-                <main className="mx-auto my-auto">{children}</main>
+                <main className="min-h-screen max-w-6xl mx-auto pt-36">
+                    {children}
+                </main>
+                <div className="w-full max-w-6xl mx-auto">
+                    <Footer />
+                </div>
             </body>
         </html>
     );
