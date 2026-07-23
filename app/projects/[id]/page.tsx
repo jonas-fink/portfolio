@@ -19,12 +19,12 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
     if (!c) notFound();
 
     return (
-        <article className="flex flex-col gap-6 max-w-content">
+        <article className="flex flex-col gap-6 max-w-content pb-6">
             <Link
                 href="/projects"
                 className="text-sm text-muted hover:text-accent"
             >
-                ← projects
+                ← cd ..
             </Link>
 
             <header className="flex flex-col gap-2">
