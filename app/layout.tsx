@@ -48,7 +48,7 @@ export default function RootLayout({
     return (
         <html
             lang="de"
-            data-accent="green"
+            data-accent="amber"
             data-font="jetbrains-mono"
             className={`${fontVars} h-full antialiased`}
         >
