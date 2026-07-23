@@ -54,7 +54,7 @@ export default function RootLayout({
         >
             <body className="flex flex-col">
                 <Header />
-                <main className="min-h-screen max-w-6xl mx-auto pt-36">
+                <main className="min-h-screen max-w-6xl pt-36 mx-auto p-6">
                     {children}
                 </main>
                 <div className="w-full max-w-6xl mx-auto">

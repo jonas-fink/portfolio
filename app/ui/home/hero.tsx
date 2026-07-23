@@ -5,9 +5,9 @@ const Hero = () => {
         <div className="flex flex-col gap-6">
             <div className="badge-status max-w-max">
                 <span className="badge-status-dot" />
-                VERFÜGBAR{' '}
-                <span className="inline-block -translate-y-0.5">.</span> offen
-                für Festanstellung & Freelance
+                AVAILABLE{' '}
+                <span className="inline-block -translate-y-0.5">.</span> open to
+                work
             </div>
             <h1 className="text-5xl font-bold">
                 <span className="text-accent">$</span> hi, ich bin Jonas Fink
