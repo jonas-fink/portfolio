@@ -21,6 +21,7 @@ const MediaGallery = ({
                 alt={`${title} — screenshot`}
                 className="rounded-md border border-border w-full h-auto snap-center shrink-0"
                 loading="eager"
+                draggable="false"
             />
         ))}
         {videos?.map((id) => (
