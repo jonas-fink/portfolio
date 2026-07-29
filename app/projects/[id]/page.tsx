@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { caseStudies, getCaseStudy } from '@/app/lib/case-studies';
+import MediaGallery from '@/app/ui/projects/media-gallery';
 
 export const generateStaticParams = () =>
     caseStudies.map((c) => ({ id: c.slug }));
@@ -66,7 +67,7 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
             </header>
 
             {c.cover && (
-                <Image
+                <CldImage
                     src={c.cover}
                     alt={`${c.title} cover`}
                     width={880}
@@ -74,6 +75,14 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
                     className="rounded-md border border-border w-full h-auto"
                 />
             )}
+
+            {c.images?.length || c.videos?.length ? (
+                <MediaGallery
+                    title={c.title}
+                    images={c.images}
+                    videos={c.videos}
+                />
+            ) : null}
 
             {c.sections.map((s) => (
                 <section key={s.heading} className="flex flex-col gap-2">

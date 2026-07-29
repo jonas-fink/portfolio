@@ -3,7 +3,6 @@ import { sendContactForm } from '../../lib/actions';
 import { useState } from 'react';
 
 const ContactForm = () => {
-    // ponytail: status doubles as the pending flag, one state instead of two
     const [status, setStatus] = useState<string | null>(null);
     const pending = status === 'Sending...';
 

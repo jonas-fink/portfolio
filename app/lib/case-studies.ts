@@ -3,13 +3,16 @@ export type CaseStudy = {
     title: string;
     year: string;
     role: string;
-    summary: string; // one-liner shown on the index card
+    summary: string;
     tech: string[];
-    cover?: string; // e.g. '/case/fink-dev/cover.png' (under public/)
+    // cover / images / videos hold Cloudinary public IDs (e.g. 'fink-dev/shot1'), not URLs
+    cover?: string;
     live?: string;
     repo?: string;
     featured?: boolean;
     sections: { heading: string; body: string }[];
+    images?: string[];
+    videos?: string[];
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -81,6 +84,12 @@ export const caseStudies: CaseStudy[] = [
                     'The same request-and-approve flow covers vacation, overtime reduction and sick leave.',
             },
         ],
+        images: [
+            'admindashboard_r06kau',
+            'socialworkerdashboard_p8ujau',
+            'einsatzplaner_koiaev',
+            'zeiterfassung_x8sw5e',
+        ],
     },
     {
         slug: 'lightme',
@@ -140,6 +149,17 @@ export const caseStudies: CaseStudy[] = [
                     'never pay its cost, and Stripe CTAs are gated behind an env flag so ' +
                     'production ships a clean "coming soon" state without build breakage.',
             },
+        ],
+        images: [
+            'userflow_xywbgd',
+            'Subscriptions_guqxes',
+            'home_rkdjsz',
+            'home2_mw0qzv',
+            'foodDiary_hfx6lr',
+            'ActivityTracking_azln3f',
+            'MoodPal_y8mckb',
+            'dashboard_qrhapu',
+            'admin_qbxmqv',
         ],
     },
 ];
