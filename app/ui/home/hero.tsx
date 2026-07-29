@@ -43,7 +43,9 @@ const Hero = () => {
                 >
                     linkedin/in/jonas-fink
                 </a>
-                <a href="mailto:fink.jon@hotmail.com">fink.jon@hotmail.com</a>
+                <a href="mailto:jonasfink.dev@gmail.com">
+                    jonasfink.dev@gmail.com
+                </a>
             </div>
         </div>
     );

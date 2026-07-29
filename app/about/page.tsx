@@ -52,8 +52,8 @@ const history = [
 const Page = () => {
     return (
         <div className="flex flex-col gap-6">
-            <p className="pb-6">
-                <span className="text-dim text-sm"> ~/ </span> about
+            <p>
+                <span className="text-dim text-sm"> ~ / </span> about
             </p>
             <div className="flex flex-col gap-3">
                 <h1 className="text-3xl font-bold">
@@ -138,7 +138,10 @@ const Page = () => {
                     <h2 className="text-2xl font-bold">The journey</h2>
                     <div className="grid grid-cols-1 gap-6 pt-6">
                         {history.map((h) => (
-                            <div className="grid grid-cols-8 border-b border-border gap-3 p-6">
+                            <div
+                                key={h.id}
+                                className="grid grid-cols-8 border-b border-border gap-3 p-6"
+                            >
                                 <p className="eyebrow text-accent col-span-1 font-bold">
                                     {h.year}
                                 </p>
