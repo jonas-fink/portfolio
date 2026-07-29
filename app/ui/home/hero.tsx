@@ -10,7 +10,7 @@ const Hero = () => {
                 work
             </div>
             <h1 className="text-5xl font-bold">
-                <span className="text-accent">$</span> hi, ich bin Jonas Fink
+                <span className="text-accent">$</span> Hi, I'm Jonas Fink
             </h1>
             <p className="text-muted">
                 Full-Stack Developer{' '}
@@ -19,17 +19,17 @@ const Hero = () => {
                 Kassel
             </p>
             <p>
-                Nach über 10 Jahren in der Sozialen Arbeit und Familienhilfe
-                habe ich mich zum Full-Stack Developer umgeschult. Meine
-                Mission: digitale Lösungen, die Barrieren abbauen und Zugang
-                erleichtern — nutzerzentrierte Anwendungen, die wirklich
-                gebraucht werden.
+                From Social Work to Full-Stack Development. After more than a
+                decade in social services and family support, I’m now building
+                digital solutions that break down barriers and improve
+                accessibility. My mission: creating user-centered applications
+                that truly make a difference.
             </p>
-            <div className="flex gap-3">
-                <Link href="/contact" className="btn-primary">
-                    Kontakt aufnehmen
+            <div className="flex gap-3 md:w-1/3">
+                <Link href="/contact" className="btn-primary w-1/2">
+                    reach out
                 </Link>
-                <Link href="/projects" className="btn-secondary">
+                <Link href="/projects" className="btn-secondary w-1/2">
                     $ ls projects/
                 </Link>
             </div>
