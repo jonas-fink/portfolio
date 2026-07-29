@@ -60,8 +60,8 @@ const Page = () => {
                     <div className="text-sm">
                         <h4 className="text-dim text-xs">RESUME</h4>
                         <a
-                            href="https://github.com/jonas-fink"
-                            target="_blank"
+                            href="/resume.pdf"
+                            download="jonas-fink-resume.pdf"
                             className="text-accent"
                         >
                             ↓ Resume (PDF)
