@@ -38,7 +38,7 @@ const Page = () => {
                     <div className="text-sm">
                         <h4 className="text-dim text-xs">STANDORT</h4>
                         <p>
-                            Kassel, DE{' '}
+                            Kassel, GER{' '}
                             <span className="inline-block -translate-y-0.75">
                                 .
                             </span>{' '}

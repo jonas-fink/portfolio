@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 const devData = {
     name: 'Jonas Fink',
-    based: 'Kassel, DE // GMT + 1',
+    based: 'Kassel, GER // GMT + 1',
     background: '10+ years of social Work -> Full-Stack Dev',
     status: 'open to work',
 };
