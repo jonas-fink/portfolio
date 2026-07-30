@@ -8,14 +8,25 @@ export const sendContactForm = async (formData: FormData) => {
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const message = formData.get('message') as string;
+    const sub_website = formData.get('sub_website') as string;
+
+    if (sub_website) {
+        console.log('Bot erkannt (Honeypot)');
+        return { error: null };
+    }
 
     if (!name || !email || !message) {
         return { error: 'All fields are required' };
     }
 
+    // ponytail: Server Action ist direkt aufrufbar, Browser-Validierung zählt nicht
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return { error: 'Invalid email address' };
+    }
+
     try {
         await resend.emails.send({
-            from: 'Contacform <email@jonasfink.dev>', // verified domain later
+            from: 'Contacform <email@jonasfink.dev>',
             to: 'jonasfink.dev@gmail.com',
             subject: `New Message from ${name}`,
             replyTo: email,
