@@ -9,8 +9,8 @@ const Hero = () => {
                 <span className="inline-block -translate-y-0.5">.</span> open to
                 work
             </div>
-            <h1 className="text-5xl font-bold">
-                <span className="text-accent">$</span> Hi, I'm Jonas Fink
+            <h1 className="text-5xl font-bold ">
+                <span className="text-accent">$</span> Hi, I'm Jonas
             </h1>
             <p className="text-muted">
                 Full-Stack Developer{' '}
@@ -25,11 +25,11 @@ const Hero = () => {
                 accessibility. My mission: creating user-centered applications
                 that truly make a difference.
             </p>
-            <div className="flex gap-3 md:w-1/3">
-                <Link href="/contact" className="btn-primary w-1/2">
+            <div className="flex md:flex-row flex-col gap-3 md:w-1/3">
+                <Link href="/contact" className="btn-primary md:w-1/2">
                     reach out
                 </Link>
-                <Link href="/projects" className="btn-secondary w-1/2">
+                <Link href="/projects" className="btn-secondary md:w-1/2">
                     $ ls projects/
                 </Link>
             </div>

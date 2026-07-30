@@ -9,8 +9,8 @@ const Page = () => {
     return (
         <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-3">
-                <p className="text-xs">
-                    <span className="text-muted">~ /</span> contact
+                <p className="text-sm pb-3 font-bold">
+                    <span className="text-dim">~ /</span> contact
                 </p>
                 <div>
                     <h2 className="text-3xl font-bold">
@@ -24,7 +24,7 @@ const Page = () => {
                     drop me a quick note about what it involves.
                 </p>
             </div>
-            <div className="flex justify-between">
+            <div className="flex md:flex-row flex-col md:justify-between gap-6">
                 <div className="flex flex-col gap-6">
                     <div className="text-sm">
                         <h4 className="text-dim text-xs">EMAIL</h4>

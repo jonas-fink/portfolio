@@ -9,15 +9,15 @@ export const metadata: Metadata = {
 const Page = () => {
     return (
         <div className="flex flex-col gap-6">
-            <p className="text-sm">
+            <p className="text-sm font-bold">
                 <span className="text-dim">~ / </span>projects{' '}
                 <span className="inline-block -translate-y-0.75 text-dim">
                     .
                 </span>{' '}
-                <span className="text-dim">{caseStudies.length} einträge</span>
+                <span className="text-dim">{caseStudies.length} entries</span>
             </p>
-            <div className="text-3xl">
-                <span className="text-accent">$</span> ls -al ~/projects
+            <div className="text-3xl font-bold">
+                <span className="text-accent ">$</span> ls -al ~/projects
             </div>
             <div className="grid gap-4 sm:grid-cols-2 pt-3">
                 {caseStudies.map((c, index) => {

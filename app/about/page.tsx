@@ -140,7 +140,7 @@ const Page = () => {
                         {history.map((h) => (
                             <div
                                 key={h.id}
-                                className="grid grid-cols-8 border-b border-border gap-3 p-6"
+                                className="md:grid md:grid-cols-8 border-b border-border gap-3 p-6"
                             >
                                 <p className="eyebrow text-accent col-span-1 font-bold">
                                     {h.year}

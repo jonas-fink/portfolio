@@ -12,7 +12,7 @@ const ContactForm = () => {
         setStatus(result.error ?? 'Message has been sent');
     };
     return (
-        <form className="w-1/2 flex flex-col gap-3" action={handleSubmit}>
+        <form className="md:w-1/2 flex flex-col gap-3" action={handleSubmit}>
             <div>
                 <label className="field-label" htmlFor="name">
                     NAME*
@@ -52,14 +52,16 @@ const ContactForm = () => {
                     className="input"
                 />
             </div>
-            <button
-                type="submit"
-                disabled={pending}
-                className="btn-primary max-w-max self-end"
-            >
-                {pending ? 'Sending' : 'Send'}
-            </button>
-            {status && <p className="text-sm">{status}</p>}
+            <div className="flex md:flex-row flex-col md:justify-between items-center gap-6">
+                <button
+                    type="submit"
+                    disabled={pending}
+                    className="btn-primary md:max-w-max self-end w-full"
+                >
+                    {pending ? 'Sending' : 'Send'}
+                </button>
+                {status && <p className="text-sm">{status}</p>}{' '}
+            </div>
         </form>
     );
 };
