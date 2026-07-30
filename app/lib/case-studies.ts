@@ -24,7 +24,6 @@ export const caseStudies: CaseStudy[] = [
         summary:
             'This portfolio, built as a living Next.js 16 and Tailwind v4 design system rather than a static template. Every visual choice — color, typography, spacing — is a token, so the whole site can be re-themed at runtime without touching a single component.',
         tech: ['Next.js', 'React', 'TypeScript', 'Tailwind v4'],
-        live: 'https://jonasfink.dev',
         repo: 'https://github.com/jonas-fink/portfolio',
         featured: false,
         sections: [
@@ -57,7 +56,6 @@ export const caseStudies: CaseStudy[] = [
             'AWS S3',
             'MongoDB',
         ],
-        live: 'No live demo (This is a project with focus on data security, its build to work in a VPN)',
         repo: 'https://github.com/jonas-fink/cms-spfh',
         featured: true,
         sections: [

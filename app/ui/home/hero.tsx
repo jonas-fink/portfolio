@@ -9,8 +9,8 @@ const Hero = () => {
                 <span className="inline-block -translate-y-0.5">.</span> open to
                 work
             </div>
-            <h1 className="text-5xl font-bold ">
-                <span className="text-accent">$</span> Hi, I&apos;m Jonas
+            <h1 className="md:text-5xl  text-4xl font-bold">
+                <span className="text-accent">$ </span>Hi, I&apos;m Jonas
             </h1>
             <p className="text-muted">
                 Full-Stack Developer{' '}
@@ -33,7 +33,7 @@ const Hero = () => {
                     $ ls projects/
                 </Link>
             </div>
-            <div className="flex gap-6 text-sm text-muted">
+            <div className="flex gap-6 text-sm text-muted flex-wrap">
                 <a href="https://github.com/jonas-fink" target="_blank">
                     github/jonas-fink
                 </a>
