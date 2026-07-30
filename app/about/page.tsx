@@ -2,6 +2,9 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'about',
+    description:
+        'Jonas Fink — from 10+ years in social work to Full-Stack (MERN) development. Background, tech stack, and career history.',
+    alternates: { canonical: '/about' },
 };
 
 const devData = {
@@ -101,7 +104,7 @@ const Page = () => {
                         A little bit about me
                     </h2>
                     <p>
-                        'I spent over a decade working in social work and family
+                        I spent over a decade working in social work and family
                         support—handling casework, coordination, and witnessing
                         firsthand how processes and systems often hinder people
                         rather than helping them. It was precisely this
@@ -111,7 +114,7 @@ const Page = () => {
                         a continuation: building digital solutions that
                         dismantle barriers and improve access, rather than
                         creating new hurdles. For me, user-centric thinking was
-                        never just a methodology—it was my job for ten years.'
+                        never just a methodology—it was my job for ten years.
                     </p>
                 </div>
                 <div className="flex flex-col gap-3">

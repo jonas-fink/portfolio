@@ -12,7 +12,18 @@ export async function generateMetadata(props: {
     params: Promise<{ id: string }>;
 }): Promise<Metadata> {
     const c = getCaseStudy((await props.params).id);
-    return { title: c?.title ?? 'Not found' };
+    if (!c) return { title: 'Not found' };
+    return {
+        title: c.title,
+        description: c.summary,
+        alternates: { canonical: `/projects/${c.slug}` },
+        openGraph: {
+            type: 'article',
+            title: c.title,
+            description: c.summary,
+            url: `/projects/${c.slug}`,
+        },
+    };
 }
 
 const Page = async (props: { params: Promise<{ id: string }> }) => {

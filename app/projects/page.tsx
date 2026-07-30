@@ -1,9 +1,12 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import { caseStudies } from '@/app/lib/case-studies';
+import ProjectCard from '@/app/ui/projects/project-card';
 
 export const metadata: Metadata = {
     title: 'projects',
+    description:
+        'Selected full-stack case studies by Jonas Fink — client management, health tracking, and design-system work built with React, TypeScript and Node.',
+    alternates: { canonical: '/projects' },
 };
 
 const Page = () => {
@@ -16,40 +19,13 @@ const Page = () => {
                 </span>{' '}
                 <span className="text-dim">{caseStudies.length} entries</span>
             </p>
-            <div className="text-3xl font-bold">
+            <h1 className="text-3xl font-bold">
                 <span className="text-accent ">$</span> ls -al ~/projects
-            </div>
+            </h1>
             <div className="grid gap-4 sm:grid-cols-2 pt-3">
-                {caseStudies.map((c, index) => {
-                    const cardNumber = String(index + 1).padStart(2, '0');
-                    return (
-                        <Link
-                            key={c.slug}
-                            href={`/projects/${c.slug}`}
-                            className="card transition-colors hover:border-accent flex flex-col justify-between"
-                        >
-                            <div>
-                                <span className="text-accent text-xs">
-                                    [{cardNumber}]
-                                </span>
-                                <h2 className="text-xl mb-1">{c.title}</h2>
-                                <div className="text-xs text-dim mb-3">
-                                    {c.year} · {c.role}
-                                </div>
-                                <p className="text-sm text-muted mb-4">
-                                    {c.summary}
-                                </p>
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                                {c.tech.map((t) => (
-                                    <span key={t} className="chip">
-                                        {t}
-                                    </span>
-                                ))}
-                            </div>
-                        </Link>
-                    );
-                })}
+                {caseStudies.map((c, index) => (
+                    <ProjectCard key={c.slug} c={c} index={index} />
+                ))}
             </div>
         </div>
     );

@@ -3,6 +3,9 @@ import ContactForm from '../ui/contact/contactForm';
 
 export const metadata: Metadata = {
     title: 'contact',
+    description:
+        'Get in touch with Jonas Fink — full-stack developer in Kassel, Germany. Open to permanent roles and freelance projects.',
+    alternates: { canonical: '/contact' },
 };
 
 const Page = () => {
@@ -13,11 +16,11 @@ const Page = () => {
                     <span className="text-dim">~ /</span> contact
                 </p>
                 <div>
-                    <h2 className="text-3xl font-bold">
+                    <h1 className="text-3xl font-bold">
                         <span className="text-accent font-bold">$</span> contact
                         --new
-                    </h2>
-                    <h3 className="text-2xl">Let's build something.</h3>
+                    </h1>
+                    <h3 className="text-2xl">Let&apos;s build something.</h3>
                 </div>
                 <p className="text-muted">
                     Whether it’s a permanent position or a freelance project –
@@ -53,7 +56,10 @@ const Page = () => {
                     </div>
                     <div className="text-sm">
                         <h4 className="text-dim text-xs">LINKEDIN</h4>
-                        <a href="https://github.com/jonas-fink" target="_blank">
+                        <a
+                            href="https://www.linkedin.com/in/jonas-fink-225335355/"
+                            target="_blank"
+                        >
                             linkedin/in/jonas-fink
                         </a>
                     </div>

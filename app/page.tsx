@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
-import { Suspense } from 'react';
 import Hero from './ui/home/hero';
 import Projects from './ui/home/projects';
 
 export const metadata: Metadata = {
-    title: 'home',
+    title: { absolute: 'Jonas Fink — Full-Stack Developer (MERN) in Kassel' },
+    alternates: { canonical: '/' },
 };
 
 const Page = () => {
