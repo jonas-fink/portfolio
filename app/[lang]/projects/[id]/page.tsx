@@ -4,36 +4,45 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { caseStudies, getCaseStudy } from '@/app/lib/case-studies';
 import MediaGallery from '@/app/ui/projects/media-gallery';
+import { locales, type Locale } from '../../../i18n/config';
+import { getDictionary } from '../../../i18n/get-dictionary';
+import { localeAlternates } from '../../../i18n/alternates';
 
 export const generateStaticParams = () =>
-    caseStudies.map((c) => ({ id: c.slug }));
+    locales.flatMap((lang) => caseStudies.map((c) => ({ lang, id: c.slug })));
 
 export async function generateMetadata(props: {
-    params: Promise<{ id: string }>;
+    params: Promise<{ lang: string; id: string }>;
 }): Promise<Metadata> {
-    const c = getCaseStudy((await props.params).id);
+    const { lang, id } = (await props.params) as { lang: Locale; id: string };
+    const c = getCaseStudy(id, lang);
     if (!c) return { title: 'Not found' };
     return {
+        metadataBase: new URL('https://jonasfink.dev'),
         title: c.title,
         description: c.summary,
-        alternates: { canonical: `/projects/${c.slug}` },
+        alternates: localeAlternates(lang, `/projects/${c.slug}`),
         openGraph: {
             type: 'article',
             title: c.title,
             description: c.summary,
-            url: `/projects/${c.slug}`,
+            url: `https://jonasfink.dev/${lang}/projects/${c.slug}`,
         },
     };
 }
 
-const Page = async (props: { params: Promise<{ id: string }> }) => {
-    const c = getCaseStudy((await props.params).id);
+const Page = async (props: {
+    params: Promise<{ lang: string; id: string }>;
+}) => {
+    const { lang, id } = (await props.params) as { lang: Locale; id: string };
+    const c = getCaseStudy(id, lang);
     if (!c) notFound();
+    const dict = getDictionary(lang);
 
     return (
         <article className="flex flex-col gap-6 max-w-content pb-6">
             <Link
-                href="/projects"
+                href={`/${lang}/projects`}
                 className="text-sm text-muted hover:text-accent"
             >
                 ← cd ..
@@ -60,7 +69,7 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
                                 rel="noreferrer"
                                 className="btn-primary"
                             >
-                                ↗ live
+                                ↗ {dict.projects.detailLive}
                             </a>
                         )}
                         {c.repo && (
@@ -70,7 +79,7 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
                                 rel="noreferrer"
                                 className="btn-secondary"
                             >
-                                ↗ code
+                                ↗ {dict.projects.detailCode}
                             </a>
                         )}
                     </div>

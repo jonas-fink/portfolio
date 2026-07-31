@@ -1,41 +1,53 @@
 'use client';
 import { sendContactForm } from '../../lib/actions';
 import { useState } from 'react';
+import type { Dictionary } from '../../i18n/dictionaries/en';
 
-const ContactForm = () => {
-    const [status, setStatus] = useState<string | null>(null);
-    const pending = status === 'Sending...';
+type Status = 'idle' | 'sending' | 'sent' | keyof Dictionary['contact']['errors'];
+
+const ContactForm = ({ dict }: { dict: Dictionary }) => {
+    const t = dict.contact.form;
+    const [status, setStatus] = useState<Status>('idle');
+    const pending = status === 'sending';
 
     const handleSubmit = async (formData: FormData) => {
-        setStatus('Sending...');
+        setStatus('sending');
         const result = await sendContactForm(formData);
-        setStatus(result.error ?? 'Message has been sent');
+        setStatus(result.error ?? 'sent');
     };
+
+    const message =
+        status === 'sent'
+            ? t.sent
+            : status in dict.contact.errors
+              ? dict.contact.errors[status as keyof typeof dict.contact.errors]
+              : null;
+
     return (
         <form className="md:w-1/2 flex flex-col gap-3" action={handleSubmit}>
             <div>
                 <label className="field-label" htmlFor="name">
-                    NAME*
+                    {t.nameLabel}
                 </label>
                 <input
                     type="text"
                     name="name"
                     id="name"
                     required
-                    placeholder="your name"
+                    placeholder={t.namePlaceholder}
                     className="input"
                 />
             </div>
             <div>
                 <label className="field-label" htmlFor="email">
-                    EMAIL*
+                    {t.emailLabel}
                 </label>
                 <input
                     type="email"
                     name="email"
                     id="email"
                     required
-                    placeholder="you@example.com"
+                    placeholder={t.emailPlaceholder}
                     className="input"
                 />
             </div>
@@ -43,9 +55,7 @@ const ContactForm = () => {
                 style={{ position: 'absolute', left: '-9999px' }}
                 aria-hidden="true"
             >
-                <label htmlFor="sub_website">
-                    Leave this field blank if you are human
-                </label>
+                <label htmlFor="sub_website">{t.honeypot}</label>
                 <input
                     type="text"
                     id="sub_website"
@@ -56,13 +66,13 @@ const ContactForm = () => {
             </div>
             <div>
                 <label className="field-label" htmlFor="message">
-                    MESSAGE*
+                    {t.messageLabel}
                 </label>
                 <textarea
                     name="message"
                     id="message"
                     rows={5}
-                    placeholder="What is it about?"
+                    placeholder={t.messagePlaceholder}
                     required
                     className="input"
                 />
@@ -73,9 +83,9 @@ const ContactForm = () => {
                     disabled={pending}
                     className="btn-primary md:max-w-max self-end w-full"
                 >
-                    {pending ? 'Sending' : 'Send'}
+                    {pending ? t.sending : t.send}
                 </button>
-                {status && <p className="text-sm">{status}</p>}{' '}
+                {message && <p className="text-sm">{message}</p>}{' '}
             </div>
         </form>
     );

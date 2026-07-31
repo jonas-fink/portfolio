@@ -1,18 +1,25 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
+import { type Locale } from '../../i18n/config';
+import { getDictionary } from '../../i18n/get-dictionary';
+import { localeAlternates } from '../../i18n/alternates';
 
-export const metadata: Metadata = {
-    title: 'about',
-    description:
-        'Jonas Fink — from 10+ years in social work to Full-Stack (MERN) development. Background, tech stack, and career history.',
-    alternates: { canonical: '/about' },
-};
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+    const { lang } = (await params) as { lang: Locale };
+    const dict = getDictionary(lang);
+    return {
+        title: dict.meta.aboutTitle,
+        description: dict.meta.aboutDescription,
+        alternates: localeAlternates(lang, '/about'),
+    };
+}
 
 const devData = {
     name: 'Jonas Fink',
-    based: 'Kassel, GER // GMT + 1',
-    background: '10+ years of social Work -> Full-Stack Dev',
-    status: 'open to work',
     // ponytail: Cloudinary already does f_auto/q_auto, so next/image runs unoptimized
     image: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_800/copy_of_profile_mjv8kv`,
 };
@@ -31,37 +38,17 @@ const techStack = [
     'AI-Assisted Development',
 ];
 
-const history = [
-    {
-        id: 1,
-        year: '2026',
-        title: 'Bootcamp completed',
-        description:
-            'Certification for Full-Stack App & Web Development (MERN-Stack) - built own projects, from client management systens to health tracking apps and deployed them.',
-    },
-    {
-        id: 2,
-        year: '2025 - today',
-        title: 'Bootcamp & first projects',
-        description:
-            'intensive bootcamp focusing on the MERN - Stack, clean code and usage of generative AI for automation and as coding assistant. Developed personal Full-Stack Applications simultaniously',
-    },
-    {
-        id: 3,
-        year: '2014 - today',
-        title: 'Social Work & Education',
-        description:
-            'Over 10 years of experience in family support: casework, coordination, and a keen eye for identifying where processes and systems stand in peoples way instead of helping them.',
-    },
-];
-
-const Page = () => {
+const Page = async ({ params }: { params: Promise<{ lang: Locale }> }) => {
+    const { lang } = (await params) as { lang: Locale };
+    const dict = getDictionary(lang);
+    const t = dict.about;
     return (
         <div className="flex flex-col gap-6">
             <div className="flex justify-center items-center gap-6 md:flex-row flex-col pb-6">
                 <div className="flex flex-col gap-6">
                     <p>
-                        <span className="text-dim text-sm"> ~ / </span> about
+                        <span className="text-dim text-sm"> ~ / </span>{' '}
+                        {t.crumb}
                     </p>
                     <div className="flex flex-col gap-3">
                         <h1 className="text-3xl font-bold">
@@ -73,13 +60,9 @@ const Page = () => {
                                 {' '}
                                 .{' '}
                             </span>{' '}
-                            @jonas-fink
+                            {t.handle}
                         </p>
-                        <p>
-                            Full-Stack Developer with a mission to use 10+ years
-                            of branche knowledge to build accessible apps with a
-                            focus on inclusion
-                        </p>
+                        <p>{t.tagline}</p>
                     </div>
                 </div>
                 <Image
@@ -95,20 +78,22 @@ const Page = () => {
             <div>
                 <div className="flex flex-wrap gap-12">
                     <div>
-                        <h3 className="text-xs text-dim">NAME</h3>
+                        <h3 className="text-xs text-dim">{t.labelName}</h3>
                         <p>{devData.name}</p>
                     </div>
                     <div>
-                        <h3 className="text-xs text-dim">BASED IN</h3>
-                        <p>{devData.based}</p>
+                        <h3 className="text-xs text-dim">{t.labelBased}</h3>
+                        <p>{t.based}</p>
                     </div>
                     <div>
-                        <h3 className="text-xs text-dim">BACKGROUND</h3>
-                        <p>{devData.background}</p>
+                        <h3 className="text-xs text-dim">
+                            {t.labelBackground}
+                        </h3>
+                        <p>{t.background}</p>
                     </div>
                     <div>
-                        <h3 className="text-xs text-dim">STATUS</h3>
-                        <p>{devData.status}</p>
+                        <h3 className="text-xs text-dim">{t.labelStatus}</h3>
+                        <p>{t.status}</p>
                     </div>
                 </div>
             </div>
@@ -116,37 +101,23 @@ const Page = () => {
                 <div className="flex flex-col gap-3">
                     <div className="flex gap-3 text-sm items-center text-dim">
                         {' '}
-                        <span className="eyebrow text-accent">01</span> THE
-                        LONGER VERSION
+                        <span className="eyebrow text-accent">01</span>{' '}
+                        {t.section1Eyebrow}
                     </div>
-                    <h2 className="text-2xl font-bold">
-                        A little bit about me
-                    </h2>
-                    <p>
-                        I spent over a decade working in social work and family
-                        support—handling casework, coordination, and witnessing
-                        firsthand how processes and systems often hinder people
-                        rather than helping them. It was precisely this
-                        perspective that led me to software development. My
-                        transition into full-stack development (specifically the
-                        MERN stack) was therefore not a break from the past, but
-                        a continuation: building digital solutions that
-                        dismantle barriers and improve access, rather than
-                        creating new hurdles. For me, user-centric thinking was
-                        never just a methodology—it was my job for ten years.
-                    </p>
+                    <h2 className="text-2xl font-bold">{t.section1Heading}</h2>
+                    <p>{t.section1Body}</p>
                 </div>
                 <div className="flex flex-col gap-3">
                     <div className="flex gap-3 text-sm items-center text-dim">
                         {' '}
-                        <span className="eyebrow text-accent">02</span> TECH
-                        STACK
+                        <span className="eyebrow text-accent">02</span>{' '}
+                        {t.section2Eyebrow}
                     </div>
-                    <h2 className="text-2xl font-bold">Tools</h2>
+                    <h2 className="text-2xl font-bold">{t.section2Heading}</h2>
                     <div className="flex flex-wrap gap-3 pt-6">
-                        {techStack.map((t, index) => (
+                        {techStack.map((tech, index) => (
                             <div key={index} className="pill">
-                                {t}
+                                {tech}
                             </div>
                         ))}
                     </div>
@@ -154,14 +125,14 @@ const Page = () => {
                 <div className="flex flex-col gap-3">
                     <div className="flex gap-3 text-sm items-center text-dim">
                         {' '}
-                        <span className="eyebrow text-accent">03</span> CAREER
-                        HISTORY
+                        <span className="eyebrow text-accent">03</span>{' '}
+                        {t.section3Eyebrow}
                     </div>
-                    <h2 className="text-2xl font-bold">The journey</h2>
+                    <h2 className="text-2xl font-bold">{t.section3Heading}</h2>
                     <div className="grid grid-cols-1 gap-6 pt-6">
-                        {history.map((h) => (
+                        {t.history.map((h, i) => (
                             <div
-                                key={h.id}
+                                key={i}
                                 className="md:grid md:grid-cols-8 border-b border-border gap-3 p-6"
                             >
                                 <p className="eyebrow text-accent col-span-1 font-bold">

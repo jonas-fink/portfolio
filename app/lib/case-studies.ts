@@ -162,5 +162,26 @@ export const caseStudies: CaseStudy[] = [
     },
 ];
 
-export const getCaseStudy = (slug: string) =>
-    caseStudies.find((c) => c.slug === slug);
+import type { Locale } from '../i18n/config';
+import { caseStudyTranslations } from './case-studies.i18n';
+
+// Merge DE/ES overrides over the English base. Omitted fields fall back to English.
+const localize = (c: CaseStudy, lang: Locale): CaseStudy => {
+    if (lang === 'en') return c;
+    const t = caseStudyTranslations[c.slug]?.[lang];
+    if (!t) return c;
+    return {
+        ...c,
+        title: t.title ?? c.title,
+        summary: t.summary ?? c.summary,
+        sections: t.sections ?? c.sections,
+    };
+};
+
+export const getLocalizedStudies = (lang: Locale): CaseStudy[] =>
+    caseStudies.map((c) => localize(c, lang));
+
+export const getCaseStudy = (slug: string, lang: Locale) => {
+    const c = caseStudies.find((s) => s.slug === slug);
+    return c ? localize(c, lang) : undefined;
+};

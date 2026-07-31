@@ -1,37 +1,35 @@
+'use client';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import type { Locale } from '../../i18n/config';
+import type { Dictionary } from '../../i18n/dictionaries/en';
 
-const links = [
-    {
-        name: 'home',
-        href: '/',
-    },
-    {
-        name: 'projects',
-        href: '/projects',
-    },
-    {
-        name: 'about',
-        href: '/about',
-    },
-    {
-        name: 'contact',
-        href: '/contact',
-    },
-];
-
-export default function NavLinks() {
+export default function NavLinks({
+    lang,
+    dict,
+}: {
+    lang: Locale;
+    dict: Dictionary;
+}) {
     const pathname = usePathname();
+    const links = [
+        { name: dict.nav.home, href: '' },
+        { name: dict.nav.projects, href: '/projects' },
+        { name: dict.nav.about, href: '/about' },
+        { name: dict.nav.contact, href: '/contact' },
+    ];
 
     return (
         <>
             {links.map((link) => {
+                const href = `/${lang}${link.href}`;
                 return (
                     <Link
-                        key={link.name}
-                        href={link.href}
+                        key={link.href}
+                        href={href}
                         className={
-                            pathname === link.href
+                            pathname === href
                                 ? 'nav-link-active'
                                 : 'nav-link'
                         }

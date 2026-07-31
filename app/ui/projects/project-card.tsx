@@ -1,11 +1,20 @@
 import Link from 'next/link';
 import type { CaseStudy } from '@/app/lib/case-studies';
+import type { Locale } from '@/app/i18n/config';
 
-const ProjectCard = ({ c, index }: { c: CaseStudy; index: number }) => {
+const ProjectCard = ({
+    c,
+    index,
+    lang,
+}: {
+    c: CaseStudy;
+    index: number;
+    lang: Locale;
+}) => {
     const cardNumber = String(index + 1).padStart(2, '0');
     return (
         <Link
-            href={`/projects/${c.slug}`}
+            href={`/${lang}/projects/${c.slug}`}
             className="card transition-colors hover:border-accent flex flex-col justify-between"
         >
             <div>

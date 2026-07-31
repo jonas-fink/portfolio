@@ -16,12 +16,12 @@ export const sendContactForm = async (formData: FormData) => {
     }
 
     if (!name || !email || !message) {
-        return { error: 'All fields are required' };
+        return { error: 'required' as const };
     }
 
     // ponytail: Server Action ist direkt aufrufbar, Browser-Validierung zählt nicht
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        return { error: 'Invalid email address' };
+        return { error: 'invalid_email' as const };
     }
 
     try {
@@ -36,6 +36,6 @@ export const sendContactForm = async (formData: FormData) => {
         return { error: null };
     } catch (error) {
         console.error('Mail Error:', error);
-        return { error: 'Error sending the mail' };
+        return { error: 'send_failed' as const };
     }
 };

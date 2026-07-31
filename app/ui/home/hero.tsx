@@ -1,35 +1,37 @@
 import Link from 'next/link';
+import type { Locale } from '../../i18n/config';
+import type { Dictionary } from '../../i18n/dictionaries/en';
 
-const Hero = () => {
+const Hero = ({ lang, dict }: { lang: Locale; dict: Dictionary }) => {
+    const t = dict.hero;
     return (
         <div className="flex flex-col gap-6">
             <div className="badge-status max-w-max">
                 <span className="badge-status-dot" />
-                AVAILABLE{' '}
-                <span className="inline-block -translate-y-0.5">.</span> open to
-                work
+                {t.available}{' '}
+                <span className="inline-block -translate-y-0.5">.</span>{' '}
+                {t.openToWork}
             </div>
             <h1 className="md:text-5xl  text-4xl font-bold">
-                <span className="text-accent">$ </span>Hi, I&apos;m Jonas
+                <span className="text-accent">$ </span>
+                {t.greeting}
             </h1>
             <p className="text-muted">
-                Full-Stack Developer{' '}
-                <span className="inline-block -translate-y-0.75">.</span> MERN
-                Stack <span className="inline-block -translate-y-0.75"> .</span>{' '}
-                Kassel
+                {t.role}{' '}
+                <span className="inline-block -translate-y-0.75">.</span>{' '}
+                {t.stack}{' '}
+                <span className="inline-block -translate-y-0.75"> .</span>{' '}
+                {t.location}
             </p>
-            <p>
-                From Social Work to Full-Stack Development. After more than a
-                decade in social services and family support, I’m now building
-                digital solutions that break down barriers and improve
-                accessibility. My mission: creating user-centered applications
-                that truly make a difference.
-            </p>
+            <p>{t.intro}</p>
             <div className="flex md:flex-row flex-col gap-3 md:w-1/3">
-                <Link href="/contact" className="btn-primary md:w-1/2">
-                    reach out
+                <Link href={`/${lang}/contact`} className="btn-primary md:w-1/2">
+                    {t.reachOut}
                 </Link>
-                <Link href="/projects" className="btn-secondary md:w-1/2">
+                <Link
+                    href={`/${lang}/projects`}
+                    className="btn-secondary md:w-1/2"
+                >
                     $ ls projects/
                 </Link>
             </div>
