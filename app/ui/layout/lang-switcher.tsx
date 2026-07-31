@@ -24,7 +24,9 @@ export default function LangSwitcher() {
             onChange={(e) =>
                 router.push(`/${e.target.value}${rest ? `/${rest}` : ''}`)
             }
-            className="nav-link bg-bg cursor-pointer"
+            // ponytail: mobile nav closes on click; don't let the select bubble
+            onClick={(e) => e.stopPropagation()}
+            className="nav-link bg-bg cursor-pointer w-full sm:w-auto min-h-11 sm:min-h-0"
         >
             {locales.map((l) => (
                 <option key={l} value={l}>

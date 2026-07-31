@@ -29,9 +29,7 @@ export default function NavLinks({
                         key={link.href}
                         href={href}
                         className={
-                            pathname === href
-                                ? 'nav-link-active'
-                                : 'nav-link'
+                            pathname === href ? 'nav-link-active' : 'nav-link'
                         }
                     >
                         {link.name}
