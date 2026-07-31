@@ -7,7 +7,7 @@ const Header = () => {
     const [open, setOpen] = useState(false);
 
     return (
-        <header className="flex w-full bg-bg border border-b border-border p-6 justify-between fixed">
+        <header className="flex w-full bg-bg border border-b border-border p-6 justify-between fixed z-99">
             <h1 className="font-bold">
                 <span className="text-accent">~/</span>jonasfink.dev
             </h1>

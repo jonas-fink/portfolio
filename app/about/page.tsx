@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'about',
@@ -12,6 +13,8 @@ const devData = {
     based: 'Kassel, GER // GMT + 1',
     background: '10+ years of social Work -> Full-Stack Dev',
     status: 'open to work',
+    // ponytail: Cloudinary already does f_auto/q_auto, so next/image runs unoptimized
+    image: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_800/copy_of_profile_mjv8kv`,
 };
 
 const techStack = [
@@ -55,23 +58,39 @@ const history = [
 const Page = () => {
     return (
         <div className="flex flex-col gap-6">
-            <p>
-                <span className="text-dim text-sm"> ~ / </span> about
-            </p>
-            <div className="flex flex-col gap-3">
-                <h1 className="text-3xl font-bold">
-                    <span className="text-accent">$</span> whoami
-                </h1>
-                <p className="text-muted">
-                    {devData.name}{' '}
-                    <span className="inline-block -translate-y-0.75"> . </span>{' '}
-                    @jonas-fink
-                </p>
-                <p>
-                    Full-Stack Developer with a mission to use 10+ years of
-                    branche knowledge to build accessible apps with a focus on
-                    inclusion
-                </p>
+            <div className="flex justify-center items-center gap-6 md:flex-row flex-col pb-6">
+                <div className="flex flex-col gap-6">
+                    <p>
+                        <span className="text-dim text-sm"> ~ / </span> about
+                    </p>
+                    <div className="flex flex-col gap-3">
+                        <h1 className="text-3xl font-bold">
+                            <span className="text-accent">$</span> whoami
+                        </h1>
+                        <p className="text-muted">
+                            {devData.name}{' '}
+                            <span className="inline-block -translate-y-0.75">
+                                {' '}
+                                .{' '}
+                            </span>{' '}
+                            @jonas-fink
+                        </p>
+                        <p>
+                            Full-Stack Developer with a mission to use 10+ years
+                            of branche knowledge to build accessible apps with a
+                            focus on inclusion
+                        </p>
+                    </div>
+                </div>
+                <Image
+                    src={devData.image}
+                    alt="Picture of Jonas"
+                    width={300}
+                    height={300}
+                    loading="eager"
+                    unoptimized
+                    className="rounded-xl shadow-[0.5px_0.5px_0px_0.5px_var(--tw-shadow-color)] shadow-amber-500"
+                />
             </div>
             <div>
                 <div className="flex flex-wrap gap-12">
