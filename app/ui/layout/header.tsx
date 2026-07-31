@@ -2,8 +2,11 @@
 
 import { useState } from 'react';
 import NavLinks from './nav-links';
+import LangSwitcher from './lang-switcher';
+import type { Locale } from '../../i18n/config';
+import type { Dictionary } from '../../i18n/dictionaries/en';
 
-const Header = () => {
+const Header = ({ lang, dict }: { lang: Locale; dict: Dictionary }) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -11,10 +14,13 @@ const Header = () => {
             <h1 className="font-bold">
                 <span className="text-accent">~/</span>jonasfink.dev
             </h1>
-            <div>
+            <div className="flex items-center gap-6">
                 <nav className="hidden sm:flex gap-6">
-                    <NavLinks />
+                    <NavLinks lang={lang} dict={dict} />
                 </nav>
+                <div className="hidden sm:block">
+                    <LangSwitcher />
+                </div>
                 <button
                     type="button"
                     onClick={() => setOpen(!open)}
@@ -30,7 +36,8 @@ const Header = () => {
                     onClick={() => setOpen(false)}
                     className="sm:hidden absolute top-full left-0 w-full flex flex-col gap-4 bg-bg border-b border-border p-6"
                 >
-                    <NavLinks />
+                    <NavLinks lang={lang} dict={dict} />
+                    <LangSwitcher />
                 </nav>
             )}
         </header>
