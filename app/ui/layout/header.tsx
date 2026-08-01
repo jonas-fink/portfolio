@@ -5,15 +5,16 @@ import NavLinks from './nav-links';
 import LangSwitcher from './lang-switcher';
 import type { Locale } from '../../i18n/config';
 import type { Dictionary } from '../../i18n/dictionaries/en';
+import Link from 'next/link';
 
 const Header = ({ lang, dict }: { lang: Locale; dict: Dictionary }) => {
     const [open, setOpen] = useState(false);
 
     return (
         <header className="flex w-full bg-bg border border-b border-border p-6 justify-between fixed z-99">
-            <h1 className="font-bold">
+            <Link href={`/${lang}`} className="font-bold">
                 <span className="text-accent">~/</span>jonasfink.dev
-            </h1>
+            </Link>
             <div className="flex items-center gap-6">
                 <nav className="hidden sm:flex gap-6">
                     <NavLinks lang={lang} dict={dict} />
