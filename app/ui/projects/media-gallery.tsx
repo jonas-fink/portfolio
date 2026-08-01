@@ -31,7 +31,7 @@ const MediaGallery = ({
                         width={880}
                         height={495}
                         alt={`${title} — screenshot`}
-                        className="rounded-md border border-border w-full h-auto snap-center shrink-0 cursor-zoom-in"
+                        className="rounded-md border border-border w-full aspect-video object-contain bg-surface snap-center shrink-0 cursor-zoom-in"
                         loading="eager"
                         draggable="false"
                         onClick={() => zoom(id)}
@@ -43,7 +43,7 @@ const MediaGallery = ({
                         src={getCldVideoUrl({ src: id })}
                         controls
                         preload="metadata"
-                        className="rounded-md border border-border w-full h-auto snap-center shrink-0"
+                        className="rounded-md border border-border w-full aspect-video object-contain bg-surface snap-center shrink-0"
                     />
                 ))}
             </div>
