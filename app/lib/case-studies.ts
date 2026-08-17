@@ -17,27 +17,6 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
     {
-        slug: 'fink-dev',
-        title: 'fink.dev',
-        year: '2026',
-        role: 'Full-Stack Developer',
-        summary:
-            'This portfolio, built as a living Next.js 16 and Tailwind v4 design system rather than a static template. Every visual choice — color, typography, spacing — is a token, so the whole site can be re-themed at runtime without touching a single component.',
-        tech: ['Next.js', 'React', 'TypeScript', 'Tailwind v4'],
-        repo: 'https://github.com/jonas-fink/portfolio',
-        featured: false,
-        sections: [
-            {
-                heading: 'Problem',
-                body: 'I wanted a portfolio that doubled as a living design system rather than a one-off template. That meant no hard-coded colors or fonts scattered across components, and a setup where changing the look of the entire site would come down to editing a handful of values in one place.',
-            },
-            {
-                heading: 'Solution',
-                body: 'I built a token-driven Tailwind v4 setup where accent color, font, and the light/dark theme are all defined as CSS variables. Because those variables are read at runtime, the site can swap its entire appearance instantly in the browser — no rebuild, no page reload, and no duplicated theme code.',
-            },
-        ],
-    },
-    {
         slug: 'cms',
         title: 'Client Management System for Social Work',
         year: '2026',
@@ -159,7 +138,7 @@ export const caseStudies: CaseStudy[] = [
         ],
         live: 'https://lightme-client.onrender.com/',
         repo: 'https://github.com/jonas-fink/lightme-client',
-        featured: true,
+        featured: false,
         sections: [
             {
                 heading: 'Situation',
@@ -334,6 +313,174 @@ export const caseStudies: CaseStudy[] = [
             'library_umdtgd',
             'communityRecipes_qfakfc',
             'editMeal_lq6n3q',
+        ],
+    },
+    {
+        slug: 'ksoko',
+        title: 'KSoKo – Social Compass',
+        year: '2026',
+        role: 'Full-Stack Developer',
+        summary:
+            'A low-barrier social compass for Kassel: municipal events, community ' +
+            'activities and counselling services on one map and in filterable lists, ' +
+            'savable into a personal library that doubles as a calendar. Three ' +
+            'independent data pipelines (daily scraper, Nominatim geocoding backfill, ' +
+            'CSV partner import) feed one unified read API, plus a guest-usable chatbot ' +
+            'with structural guardrails against hallucinated recommendations.',
+        tech: [
+            'React',
+            'TypeScript',
+            'Node.js',
+            'Express.js',
+            'MongoDB',
+            'Gemini API',
+            'AWS S3',
+            'Docker',
+        ],
+        repo: 'https://github.com/jonas-fink/SokoRefactor',
+        featured: true,
+        sections: [
+            {
+                heading: 'Situation',
+                body:
+                    'In Kassel and comparable cities, knowledge about affordable family ' +
+                    'offerings and social counselling services is scattered. Debt counselling, ' +
+                    'addiction support, family services, asylum advice, public offices — spread ' +
+                    'across dozens of individual pages, municipal portals and PDFs. The very ' +
+                    'people who need this information most urgently, families and financially ' +
+                    'disadvantaged households, have the least time and institutional knowledge ' +
+                    'to piece it together. There was no single low-barrier surface connecting ' +
+                    '"what is happening" (events, activities) with "who helps" (counselling ' +
+                    'services), let alone one that made both savable into a personal calendar.',
+            },
+            {
+                heading: 'Task',
+                body:
+                    'The goal was a web application, starting with Kassel as the pilot city, ' +
+                    'that makes events and counselling services accessible on a map and in ' +
+                    'filterable lists, allows saving them into a personal library and calendar, ' +
+                    'and delivers provider details such as opening hours, address and phone ' +
+                    'number without a paywall or ticketing friction. The non-goals defined the ' +
+                    'task almost as much as the goals: no "second Eventim" with a commercial ' +
+                    'focus, no coldly bureaucratic interface — the application had to feel warm ' +
+                    'and accessible. Technically, the task was to design a data model and an ' +
+                    'architecture that merges three fundamentally different data sources — ' +
+                    'manually created activities, a scraped municipal events calendar and ' +
+                    'partner-supplied counselling data — into one consistent read API without ' +
+                    'duplicating logic per content type.',
+            },
+            {
+                heading: 'Action',
+                body:
+                    'The system is a classic three-tier MERN architecture (Express 5, ' +
+                    'MongoDB/Mongoose 9, React 19 + TypeScript, Node.js) in which a ' +
+                    'scraping/import pipeline sits alongside the API as an independent, ' +
+                    'asynchronous data producer rather than as part of the request path. The ' +
+                    'client talks exclusively to the Express API — never directly to MongoDB, ' +
+                    'Cloudinary, S3 or Gemini — so authorization, validation (Zod) and rate ' +
+                    'limiting are enforced in exactly one place. For the data model, the three ' +
+                    'content types Activity, ScrapedEvent and Beratung deliberately remained ' +
+                    'separate Mongoose models instead of a shared base collection — they share ' +
+                    'too few fields to justify inheritance. They are unified at the API boundary ' +
+                    'instead: GET /events merges Activity and ScrapedEvent into one ' +
+                    'date-sorted list, and a single polymorphic Favorite model (itemType + ' +
+                    'itemId via Mongoose refPath, compound unique index) makes all three equally ' +
+                    'savable — a saved item with a date is therefore already the calendar entry, ' +
+                    'and a separate Appointment model was deliberately left out. Categories run ' +
+                    'as a validated whitelist rather than foreign keys, so filtering stays a ' +
+                    'simple $in query instead of a populate() in every controller. Geodata is a ' +
+                    'required field on Activity and Beratung (GeoJSON Point with a 2dsphere ' +
+                    'index); for ScrapedEvent, where the city only supplies a venue name as ' +
+                    'text, the coordinate is backfilled asynchronously via Nominatim. ' +
+                    'Authentication uses a short-lived JWT access token (15 minutes, kept only ' +
+                    'in client memory, never in localStorage) together with a rotating, httpOnly ' +
+                    'refresh-token cookie (7 days); every refresh token belongs to a family, and ' +
+                    'reusing an already-rotated token immediately revokes the entire family — ' +
+                    'the standard protection against a stolen but belatedly used refresh token. ' +
+                    'Passwords are hashed with bcrypt, roles (user/creator/admin) run through a ' +
+                    'requireRole(...) middleware factory plus a generic isDocOwner(Model) for ' +
+                    'owner-or-admin rules; counselling-service data is deliberately restricted ' +
+                    'to adminOnly write access instead of the laxer creator role used for ' +
+                    'activities, because a wrong entry on a debt counselling service carries a ' +
+                    'different risk than a wrong event. On the data side, three independent ' +
+                    'pipelines feed the same read surface: a daily cron scraper against the ' +
+                    'municipal events calendar with idempotent upsert on externalId, a geocoding ' +
+                    'backfill against Nominatim (currently around 60% of the roughly 3,180 ' +
+                    'scraped venues resolved automatically), and a CSV partner import with its ' +
+                    'own parser for counselling organizations. A chatbot (POST /chat) helps ' +
+                    'users phrase a need in their own words and is deliberately usable by guests ' +
+                    'too, because the moment someone asks for help is often exactly the moment ' +
+                    'they do not want to create an account. The response structure makes ' +
+                    'safeguards mandatory fields rather than optional extras: every answer ' +
+                    'carries a handoff (a concrete human next step), a disclaimer is mandatory ' +
+                    'for financial, asylum or health topics, and a deterministic keyword check ' +
+                    'for emergency numbers runs before every model call — if it matches, neither ' +
+                    'the database nor Gemini is consulted. A knownOnly() filter discards every ' +
+                    'ID returned by the model that does not actually exist, structurally ruling ' +
+                    'out hallucinated recommendations; if Gemini fails, a deterministic keyword ' +
+                    'table takes over as fallback. Voice input returns a verbatim, untranslated ' +
+                    'transcript for review before sending — a German translation would be ' +
+                    'exactly what the feature’s target group could not verify. New accounts ' +
+                    'land in a skippable onboarding wizard; preferencesSetAt is set on skip as ' +
+                    'well, so "deliberately not answered" stays distinguishable from "never ' +
+                    'asked", and filter state lives entirely in the URL. A security review ' +
+                    'surfaced three silent bugs that went unnoticed in normal operation: a ' +
+                    'misconfigured trust proxy setting that lumped all users into one bucket for ' +
+                    'the IP-based rate limiter behind the reverse proxy, temp files never ' +
+                    'cleaned up on the error path during file upload, and client-side error ' +
+                    'handling that collapsed different API errors into one meaningless message. ' +
+                    'The application runs as a three-container Docker Compose stack (MongoDB ' +
+                    'with no published port, client behind nginx), automated via GitHub Actions ' +
+                    'on a self-hosted runner on every push to main.',
+            },
+            {
+                heading: 'Result',
+                body:
+                    'The application is fully functional for the MVP scope and running in ' +
+                    'production: users discover activities, municipal events and counselling ' +
+                    'services on a map and in lists filtered by category, language, target group ' +
+                    'and price, save them into a personal library that doubles as a calendar, ' +
+                    'and admin-curated counselling services provide opening hours, preferred ' +
+                    'contact channels and downloadable application documents via time-limited ' +
+                    'presigned S3 links. The chatbot offers guests and logged-in users alike a ' +
+                    'conversational entry point by text or voice, with structural safeguards ' +
+                    'against wrong recommendations and a 90-day history retention for logged-in ' +
+                    'users. A suite of 80 tests on Node.js’ built-in test runner covers ' +
+                    'exactly the places where a silent regression would be expensive: filter ' +
+                    'composition, category mapping, closed vocabularies, chat guardrails, ' +
+                    'import/scrape parsing and calendar math. Open and deliberately not hidden: ' +
+                    'Gemini still runs on the free tier, which must be moved to a paid tier ' +
+                    'before real users because of possible special categories of personal data ' +
+                    '(Art. 9 GDPR); the privacy policy exists as a legally unreviewed draft; ' +
+                    'feedback entries currently only land in the database with no delivery path; ' +
+                    'and MongoDB runs without authentication, which is only defensible because ' +
+                    'the port is not published and the host is not publicly reachable.',
+            },
+            {
+                heading: 'Key Takeaways',
+                body:
+                    'Node.js’ built-in test runner proved sufficient for a project of this ' +
+                    'size — no extra framework, no extra configuration layer. Recurring patterns ' +
+                    'like the native <dialog> element for the filter panel and chat modal saved a ' +
+                    'dedicated modal library, and a theme switch with no React context at all ' +
+                    '(the DOM itself as state, set by an inline script to prevent a flash of ' +
+                    'unstyled content) showed that not every piece of global state needs a ' +
+                    'context. The biggest lesson came from the security review: the trust proxy ' +
+                    'misconfiguration ran unnoticed for a long time because it only becomes ' +
+                    'visible under multi-user load — an indication that rate limiting and ' +
+                    'similar infrastructure middleware need explicit tests, not just a look at ' +
+                    'the code. For growing user numbers, the next steps would be moving the ' +
+                    'Gemini integration to a paid quota with a real cost cap, introducing a ' +
+                    'central env validation module that reports missing S3 or Gemini credentials ' +
+                    'at startup instead of at the first upload, and improving the geocoding hit ' +
+                    'rate through better fallback queries rather than through more code.',
+            },
+        ],
+        images: [
+            'Hero_bqvrcc',
+            'ChatModal_y6zull',
+            'filterMain_x6gigq',
+            'Beratung_n5eaxt',
         ],
     },
 ];
