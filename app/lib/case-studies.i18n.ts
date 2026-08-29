@@ -59,7 +59,7 @@ export const caseStudyTranslations: Record<
                         'mit Reuse Detection wertet jede Wiederverwendung eines alten Tokens als Diebstahl ' +
                         'und widerruft sofort die gesamte Token-Familie. Express-Middlewares (protect, ' +
                         'adminOnly) steuern nicht nur den Routenzugriff, sondern auch Field-Level Write ' +
-                        'Guards – eine Fachkraft darf die Kontaktdaten ihrer Familie ändern, nicht aber ' +
+                        'Guards: eine Fachkraft darf die Kontaktdaten ihrer Familie ändern, nicht aber ' +
                         'Status, Stundenkontingent oder Zuweisung. Die MongoDB-Struktur ist referenziert ' +
                         '(User, Client, Appointment) mit Sub-Dokumenten für eng gekoppelte Daten wie die ' +
                         'RSVP-Zusagen bei CalendarEvents. Die Business-Logik läuft über Aggregationen: die ' +

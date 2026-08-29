@@ -20,7 +20,6 @@ export async function generateMetadata({
 
 const devData = {
     name: 'Jonas Fink',
-    // ponytail: Cloudinary already does f_auto/q_auto, so next/image runs unoptimized
     image: `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_800/copy_of_profile_mjv8kv`,
 };
 

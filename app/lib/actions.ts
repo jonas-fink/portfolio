@@ -19,7 +19,6 @@ export const sendContactForm = async (formData: FormData) => {
         return { error: 'required' as const };
     }
 
-    // ponytail: Server Action ist direkt aufrufbar, Browser-Validierung zählt nicht
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         return { error: 'invalid_email' as const };
     }
