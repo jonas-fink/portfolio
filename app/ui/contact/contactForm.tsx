@@ -24,7 +24,7 @@ const ContactForm = ({ dict }: { dict: Dictionary }) => {
               : null;
 
     return (
-        <form className="md:w-1/2 flex flex-col gap-3" action={handleSubmit}>
+        <form className="p-6 md:p-7 flex flex-col gap-4" action={handleSubmit}>
             <div>
                 <label className="field-label" htmlFor="name">
                     {t.nameLabel}
@@ -77,16 +77,24 @@ const ContactForm = ({ dict }: { dict: Dictionary }) => {
                     className="input"
                 />
             </div>
-            <div className="flex md:flex-row flex-col md:justify-between items-center gap-6">
-                <button
-                    type="submit"
-                    disabled={pending}
-                    className="btn-primary md:max-w-max self-end w-full"
+            {message && (
+                <p
+                    role={status === 'sent' ? 'status' : 'alert'}
+                    className={`text-sm px-3.5 py-3 rounded-sm border border-border bg-bg ${
+                        status === 'sent' ? 'text-accent' : 'text-red-300'
+                    }`}
                 >
-                    {pending ? t.sending : t.send}
-                </button>
-                {message && <p className="text-sm">{message}</p>}{' '}
-            </div>
+                    {status === 'sent' ? '✓ ' : '✗ '}
+                    {message}
+                </p>
+            )}
+            <button
+                type="submit"
+                disabled={pending}
+                className="btn-primary md:self-start w-full md:w-auto"
+            >
+                $ {pending ? `${t.sending} …` : `${t.send} ↵`}
+            </button>
         </form>
     );
 };

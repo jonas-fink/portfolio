@@ -80,6 +80,15 @@ export default async function RootLayout({
             className={`${jetbrainsMono.variable} h-full antialiased`}
         >
             <body className="flex flex-col">
+                <div
+                    aria-hidden="true"
+                    className="fixed inset-0 -z-10 overflow-hidden pointer-events-none"
+                >
+                    <div className="bg-dots" />
+                    <div className="bg-glow" />
+                    <div className="bg-sweep" />
+                </div>
+                <div aria-hidden="true" className="bg-scan" />
                 <Header lang={lang} dict={dict} />
                 <main className="min-h-screen max-w-6xl pt-36 mx-auto p-6">
                     {children}

@@ -113,3 +113,282 @@
       placeholder:text-dim focus:outline-none focus:border-accent;
     }
 }
+
+/* ------------------------------------------------------------------
+   Live Shell motion layer. Pure CSS: time-based intro animations plus
+   scroll-driven ones (animation-timeline). Browsers without scroll
+   timelines skip those blocks and show everything static.
+-------------------------------------------------------------------*/
+@layer components {
+    .win {
+        @apply border border-border bg-surface/85 rounded-md overflow-hidden;
+    }
+    .win-bar {
+        @apply flex items-center gap-2 px-4 py-3 border-b border-border text-xs text-dim;
+    }
+    .win-bar i {
+        @apply size-2.5 rounded-full bg-[#3a3d44];
+    }
+    .row {
+        @apply transition-colors hover:bg-accent/10;
+    }
+    .row .arrow {
+        @apply transition-transform;
+    }
+    .row:hover .arrow {
+        @apply translate-x-1 text-accent;
+    }
+}
+
+/* animated background */
+.bg-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(231, 233, 236, 0.16) 1px, transparent 1.4px);
+    background-size: 22px 22px;
+    animation: sh-drift 40s linear infinite;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
+}
+.bg-glow {
+    position: absolute;
+    left: 30%;
+    top: -10%;
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent), transparent 62%);
+    animation: sh-roam 18s ease-in-out infinite alternate;
+}
+.bg-sweep {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 140px;
+    background: linear-gradient(transparent, color-mix(in srgb, var(--accent) 6%, transparent), transparent);
+    animation: sh-sweep 7s linear infinite;
+}
+.bg-scan {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.4;
+    background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px);
+}
+@keyframes sh-drift {
+    to {
+        background-position: 220px 440px;
+    }
+}
+@keyframes sh-roam {
+    0% {
+        transform: translate(-18%, -10%);
+    }
+    50% {
+        transform: translate(22%, 12%);
+    }
+    100% {
+        transform: translate(-6%, 26%);
+    }
+}
+@keyframes sh-sweep {
+    from {
+        transform: translateY(-160px);
+    }
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* intro: typed text (--n = character count), staggered fades, cursor */
+.type {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    width: 0;
+    animation: sh-type var(--dur, 1s) steps(var(--n, 20)) var(--d, 0s) forwards;
+}
+@keyframes sh-type {
+    to {
+        width: calc(var(--n) * 1ch);
+    }
+}
+.fade {
+    opacity: 0;
+    animation: sh-in 0.5s ease var(--d, 0s) forwards;
+}
+@keyframes sh-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+.cursor {
+    display: inline-block;
+    width: 0.6ch;
+    height: 1em;
+    background: var(--accent);
+    vertical-align: -0.12em;
+    animation: sh-blink 1s steps(1) infinite;
+}
+@keyframes sh-blink {
+    50% {
+        opacity: 0;
+    }
+}
+.badge-status-dot {
+    animation: sh-pulse 2s ease-in-out infinite;
+}
+@keyframes sh-pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+    }
+    50% {
+        box-shadow: 0 0 0 6px transparent;
+    }
+}
+
+/* scroll-driven */
+.scroll-bar,
+.scroll-pct {
+    display: none;
+}
+@property --pct {
+    syntax: '<integer>';
+    inherits: true;
+    initial-value: 0;
+}
+@supports (animation-timeline: scroll()) {
+    .scroll-bar {
+        display: block;
+        transform-origin: left;
+        animation: sh-grow linear both;
+        animation-timeline: scroll();
+    }
+    .scroll-pct {
+        display: inline;
+        animation: sh-count linear both;
+        animation-timeline: scroll();
+        counter-reset: pct var(--pct);
+    }
+    .scroll-pct::after {
+        content: counter(pct) '%';
+    }
+    .reveal {
+        animation: sh-rise linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 70%;
+    }
+    .wipe {
+        animation: sh-clip linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 35%;
+    }
+    .draw {
+        transform-origin: top;
+        animation: sh-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 20% cover 60%;
+    }
+    .hero-out {
+        animation: sh-out linear both;
+        animation-timeline: view();
+        animation-range: exit 0% exit 90%;
+    }
+    .parallax {
+        animation: sh-par linear both;
+        animation-timeline: view();
+    }
+    /* scroll-spy: section sets --tl, its TOC link animates on that timeline */
+    .spy-scope {
+        timeline-scope: var(--scope);
+    }
+    .spy-target {
+        view-timeline-name: var(--tl);
+    }
+    .spy {
+        animation: sh-spy linear both;
+        animation-timeline: var(--tl);
+        animation-range: cover 0% cover 100%;
+    }
+}
+@keyframes sh-grow {
+    from {
+        transform: scaleX(0);
+    }
+}
+@keyframes sh-count {
+    to {
+        --pct: 100;
+    }
+}
+@keyframes sh-rise {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+        filter: blur(4px);
+    }
+}
+@keyframes sh-clip {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0);
+    }
+}
+@keyframes sh-draw {
+    from {
+        transform: scaleY(0);
+    }
+}
+@keyframes sh-out {
+    to {
+        opacity: 0.15;
+        transform: translateY(-60px) scale(0.97);
+    }
+}
+@keyframes sh-par {
+    from {
+        transform: translateY(40px) scale(1.04);
+    }
+    to {
+        transform: translateY(-40px) scale(1.04);
+    }
+}
+@keyframes sh-spy {
+    0%,
+    20%,
+    80%,
+    100% {
+        color: var(--text-dim);
+        background: transparent;
+    }
+    24%,
+    76% {
+        color: var(--accent);
+        background: color-mix(in srgb, var(--accent) 10%, transparent);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation: none !important;
+    }
+    .type {
+        width: auto;
+    }
+    .fade {
+        opacity: 1;
+    }
+    .scroll-bar,
+    .scroll-pct {
+        display: none !important;
+    }
+}
