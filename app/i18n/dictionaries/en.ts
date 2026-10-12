@@ -11,8 +11,8 @@ const en = {
         contact: 'contact',
     },
     hero: {
-        available: 'AVAILABLE',
-        openToWork: 'open to work',
+        available: 'EMPLOYED',
+        openToWork: 'open to freelance',
         greeting: "Hi, I'm Jonas",
         role: 'Full-Stack Developer',
         stack: 'MERN Stack',

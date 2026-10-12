@@ -11,8 +11,8 @@ const de: DeepPartial<Dictionary> = {
         contact: 'kontakt',
     },
     hero: {
-        available: 'VERFÜGBAR',
-        openToWork: 'offen für neue Aufgaben',
+        available: 'ANGESTELLT',
+        openToWork: 'offen für Freelance',
         greeting: 'Hi, ich bin Jonas',
         role: 'Full-Stack-Entwickler',
         stack: 'MERN Stack',
