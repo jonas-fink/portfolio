@@ -212,15 +212,13 @@ export const caseStudies: CaseStudy[] = [
             },
         ],
         images: [
-            'userflow_xywbgd',
-            'Subscriptions_guqxes',
-            'home_rkdjsz',
-            'home2_mw0qzv',
-            'foodDiary_hfx6lr',
-            'ActivityTracking_azln3f',
-            'MoodPal_y8mckb',
-            'dashboard_qrhapu',
-            'admin_qbxmqv',
+            '03-home_wka7ms',
+            '06-mood-pal_lb6lga',
+            '08-activity_mtoiiu',
+            '07-body-compass_d8ml18',
+            '04-dashboard_aiqnog',
+            '02-pricing_gwm0cm',
+            '05-food-diary_hzkrgi',
         ],
     },
     {
@@ -481,6 +479,140 @@ export const caseStudies: CaseStudy[] = [
             'ChatModal_y6zull',
             'filterMain_x6gigq',
             'Beratung_n5eaxt',
+        ],
+    },
+    {
+        slug: 'amplify',
+        title: 'Amplify – Shared Project Boards',
+        year: '2026',
+        role: 'Full-Stack Developer',
+        summary:
+            'A shared project board for a small team: tasks, an archive, files and ' +
+            'invites in one place that people and agents (Cursor, Claude, ChatGPT) ' +
+            'read and write alike. Membership stays the boundary — an agent acts as ' +
+            'the signed-in user and only sees that user’s projects.',
+        tech: [
+            'Next.js',
+            'React',
+            'TypeScript',
+            'Tailwind v4',
+            'Postgres',
+            'Auth.js',
+            'MCP',
+            'Cloudflare R2',
+            'Docker',
+        ],
+        live: 'https://amplify.tail2593e2.ts.net',
+        repo: 'https://github.com/jonas-fink/applify',
+        sections: [
+            {
+                heading: 'Situation',
+                body:
+                    'On a small team, work on a project is split across the board, the ' +
+                    'chat, and an assistant’s session. Status, assignment, checklists and ' +
+                    'files live in one place, the next instruction to Cursor, Claude or ' +
+                    'ChatGPT in another, and none of it knows who is actually a member of ' +
+                    'the project. An agent that is supposed to create a task needs either ' +
+                    'a second source of truth or an access path that reaches further than ' +
+                    'the account of the person who asked. There was no single surface on ' +
+                    'which a person and an agent read and write the same projects, with ' +
+                    'the agent limited to the projects of the signed-in user.',
+            },
+            {
+                heading: 'Task',
+                body:
+                    'The goal was a board for a small team: projects with the statuses ' +
+                    'open, in progress and done, an archive, priority, assignees, ' +
+                    'subtasks, invite links and files. The non-goals defined the task ' +
+                    'almost as much as the goals: no second Jira with sprints, estimates ' +
+                    'and custom workflows, and no general agent platform that connects ' +
+                    'arbitrary tools. Technically, the task was to design one write path ' +
+                    'that the interface and the agent tools share, that checks membership ' +
+                    'in that path rather than in every caller, and to provide an agent ' +
+                    'sign-in that connectors can finish. Connectors cannot reach localhost ' +
+                    'or any port other than 443, so reachability was part of the task ' +
+                    'rather than a deploy step that comes afterwards.',
+            },
+            {
+                heading: 'Action',
+                body:
+                    'The application is a Next.js 16 app (App Router, React 19, ' +
+                    'TypeScript, Tailwind v4) with Postgres via the postgres driver on ' +
+                    'Supabase, no ORM, Zod at the write boundaries, and Auth.js ' +
+                    'credentials whose passwords are hashed with bcrypt. Task writes ' +
+                    'go through a single module, task-writes: a transaction checks ' +
+                    'project_members first and only then inserts or updates. Server ' +
+                    'Actions in the UI and the six MCP tools (applify_list_projects, ' +
+                    'applify_list_tasks, ' +
+                    'applify_create_task, applify_create_subtask, applify_update_task, ' +
+                    'applify_update_subtask) call that same module, so a task created by ' +
+                    'an agent passes the same rules as one from the form. Agent ' +
+                    'authentication deliberately has a single verifier. A bearer key ' +
+                    'with the apl_ prefix is stored as a SHA-256 hash, shown to the user ' +
+                    'only once, and capped at ten keys per account. Claude and ChatGPT ' +
+                    'arrive via OAuth with an authorization code and PKCE S256; only ' +
+                    'claude.ai and chatgpt.com are accepted as clients, the authorization ' +
+                    'code is deleted on exchange, and the access token is itself a row ' +
+                    'in api_keys. The MCP handler therefore never grows a second auth ' +
+                    'path. Invite links store only the hash of the token, with expiry ' +
+                    'and revocation. Files live in a private R2 bucket; the upload uses ' +
+                    'a short-lived presigned PUT URL, the row stays pending until the ' +
+                    'object’s size and type are confirmed, at 50 MB and an allowlist of ' +
+                    'file types. The archive is a status rather than a second table: the ' +
+                    'board shows only open, in progress and done, while the summary route ' +
+                    'still counts archived tasks, so completed history does not disappear ' +
+                    'when it leaves the board. An optional Gemini narration only rephrases ' +
+                    'that deterministic summary and runs only when a key is set. The app ' +
+                    'ships as a Docker Compose stack via GitHub Actions on a self-hosted ' +
+                    'runner on every push to main. The app container binds only ' +
+                    '127.0.0.1:3000; a Tailscale sidecar serves it through Funnel on port ' +
+                    '443, because 443 on the host is already taken by another application ' +
+                    'and connectors cannot reach a different port.',
+            },
+            {
+                heading: 'Result',
+                body:
+                    'The application works for this scope and is running: signed-in ' +
+                    'members see their boards, search the title and description of their ' +
+                    'own projects, invite people by link, remove members — their ' +
+                    'assignments are cleared and the last owner stays — create tasks ' +
+                    'with priority, due date and a checklist, move finished work into ' +
+                    'the archive, and attach files to a project or a task. The same ' +
+                    'person can connect an agent under their account; the agent lists ' +
+                    'and writes only where they are a member. Open and deliberately not ' +
+                    'hidden: there is no automated test suite; the schema is applied by ' +
+                    'hand in the Supabase SQL editor and not by the container; the app ' +
+                    'role bypasses row-level security, yet RLS is on and there are no ' +
+                    'policies for anon, so a leaked anon key cannot read the tables, ' +
+                    'including password hashes and invite tokens; OAuth access tokens ' +
+                    'last seven days; a Gemini briefing sends task text to Google and ' +
+                    'runs only when GEMINI_API_KEY is set.',
+            },
+            {
+                heading: 'Key Takeaways',
+                body:
+                    'One shared write module mattered more than a second API. The ' +
+                    'interface and the agent pass through the same transaction, the same ' +
+                    'membership check and the same Zod boundaries, so the two entrances ' +
+                    'cannot drift apart. Reusing the OAuth access token as a row in ' +
+                    'api_keys kept MCP authentication to a single function: the handler ' +
+                    'checks a hash and receives a user id, whether the key was created ' +
+                    'by hand or exchanged by Claude. The biggest lesson was in the ' +
+                    'deploy. Funnel on port 443 was a product requirement, not an ' +
+                    'afterthought, because a connector that cannot reach localhost or an ' +
+                    'occupied host port effectively does not have the feature. For the ' +
+                    'step beyond a personal tailnet, the next steps would be a test ' +
+                    'suite exactly where a silent regression would be expensive — ' +
+                    'membership and token exchange — an env check at startup that ' +
+                    'reports missing R2 or Gemini credentials instead of at the first ' +
+                    'upload, and access tokens shorter than today’s seven days.',
+            },
+        ],
+        images: [
+            'projects_dashboard_lsxml9',
+            'aisummary_vuk7em',
+            'createtask_jbafnr',
+            'taskboard_hrqhaf',
         ],
     },
 ];

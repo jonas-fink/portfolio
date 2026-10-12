@@ -11,8 +11,8 @@ const en = {
         contact: 'contact',
     },
     hero: {
-        available: 'AVAILABLE',
-        openToWork: 'open to work',
+        available: 'EMPLOYED',
+        openToWork: 'open to freelance',
         greeting: "Hi, I'm Jonas",
         role: 'Full-Stack Developer',
         stack: 'MERN Stack',
@@ -40,7 +40,7 @@ const en = {
         labelStatus: 'STATUS',
         based: 'Kassel, GER // GMT + 1',
         background: '10+ years of social Work -> Full-Stack Dev',
-        status: 'open to work',
+        status: 'Full-Stack Dev @ helpely',
         section1Eyebrow: 'THE LONGER VERSION',
         section1Heading: 'A little bit about me',
         section1Body:
@@ -51,16 +51,24 @@ const en = {
         section3Heading: 'The journey',
         history: [
             {
+                year: '09/2026 - today',
+                title: 'Full-Stack Developer @ helpely',
+                url: 'https://www.helpely.de/',
+                description:
+                    'Building the platform of a startup that matches people seeking help with the right social institution — and gives institutions a holistic place to showcase their offers and free places.',
+            },
+            {
+                year: '09/2026 - today',
+                title: 'Member @ KI Hub Kassel',
+                url: 'https://kikassel.com/',
+                description:
+                    'Workshops, meetups and consulting on AI topics — from AI system integration to AI-assisted and agentic coding.',
+            },
+            {
                 year: '2026',
                 title: 'Bootcamp completed',
                 description:
                     'Certification for Full-Stack App & Web Development (MERN-Stack) - built own projects, from client management systens to health tracking apps and deployed them.',
-            },
-            {
-                year: '2025 - today',
-                title: 'Bootcamp & first projects',
-                description:
-                    'intensive bootcamp focusing on the MERN - Stack, clean code and usage of generative AI for automation and as coding assistant. Developed personal Full-Stack Applications simultaniously',
             },
             {
                 year: '2014 - today',

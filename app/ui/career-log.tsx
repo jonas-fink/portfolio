@@ -10,7 +10,7 @@ const CareerLog = ({ history }: { history: Dictionary['about']['history'] }) => 
             className="draw absolute left-[7px] top-2 bottom-2 w-0.5 bg-linear-to-b from-accent to-border"
         />
         {history.map((h, i) => (
-            <div key={h.year} className="reveal relative flex flex-col gap-1.5">
+            <div key={h.title} className="reveal relative flex flex-col gap-1.5">
                 <span
                     aria-hidden="true"
                     className="absolute -left-[39px] top-1 size-3.5 rounded-full border-2 border-accent bg-bg"
@@ -19,7 +19,20 @@ const CareerLog = ({ history }: { history: Dictionary['about']['history'] }) => 
                     <span className="text-accent">{hashes[i % hashes.length]}</span>{' '}
                     <span className="text-dim">({h.year})</span>
                 </p>
-                <h3 className="text-lg font-bold">{h.title}</h3>
+                <h3 className="text-lg font-bold">
+                    {'url' in h && h.url ? (
+                        <a
+                            href={h.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-accent underline decoration-border underline-offset-4"
+                        >
+                            {h.title} ↗
+                        </a>
+                    ) : (
+                        h.title
+                    )}
+                </h3>
                 <p className="text-muted leading-relaxed max-w-2xl">
                     {h.description}
                 </p>

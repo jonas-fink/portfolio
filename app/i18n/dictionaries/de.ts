@@ -11,8 +11,8 @@ const de: DeepPartial<Dictionary> = {
         contact: 'kontakt',
     },
     hero: {
-        available: 'VERFÜGBAR',
-        openToWork: 'offen für neue Aufgaben',
+        available: 'ANGESTELLT',
+        openToWork: 'offen für Freelance',
         greeting: 'Hi, ich bin Jonas',
         role: 'Full-Stack-Entwickler',
         stack: 'MERN Stack',
@@ -40,7 +40,7 @@ const de: DeepPartial<Dictionary> = {
         labelStatus: 'STATUS',
         based: 'Kassel, GER // GMT + 1',
         background: '10+ Jahre Soziale Arbeit -> Full-Stack-Dev',
-        status: 'offen für neue Aufgaben',
+        status: 'Full-Stack-Dev @ helpely',
         section1Eyebrow: 'DIE LÄNGERE VERSION',
         section1Heading: 'Ein bisschen über mich',
         section1Body:
@@ -51,16 +51,24 @@ const de: DeepPartial<Dictionary> = {
         section3Heading: 'Der Weg',
         history: [
             {
+                year: '09/2026 - heute',
+                title: 'Full-Stack-Entwickler @ helpely',
+                url: 'https://www.helpely.de/',
+                description:
+                    'Entwicklung der Plattform eines Startups, das Hilfesuchende mit der passenden sozialen Einrichtung zusammenbringt – und Einrichtungen einen ganzheitlichen Ort bietet, um ihre Angebote und freien Plätze zu präsentieren.',
+            },
+            {
+                year: '09/2026 - heute',
+                title: 'Mitglied @ KI Hub Kassel',
+                url: 'https://kikassel.com/',
+                description:
+                    'Workshops, Meetups und Beratung rund um KI – von KI-Systemintegration bis zu KI-gestütztem und agentischem Coding.',
+            },
+            {
                 year: '2026',
                 title: 'Bootcamp abgeschlossen',
                 description:
                     'Zertifizierung für Full-Stack App- & Web-Entwicklung (MERN-Stack) – eigene Projekte umgesetzt, vom Klientenmanagement bis zu Health-Tracking-Apps, und deployed.',
-            },
-            {
-                year: '2025 - heute',
-                title: 'Bootcamp & erste Projekte',
-                description:
-                    'Intensives Bootcamp mit Fokus auf den MERN-Stack, sauberen Code und den Einsatz generativer KI zur Automatisierung und als Coding-Assistent. Parallel eigene Full-Stack-Anwendungen entwickelt.',
             },
             {
                 year: '2014 - heute',
