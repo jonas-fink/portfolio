@@ -40,7 +40,7 @@ const es: DeepPartial<Dictionary> = {
         labelStatus: 'ESTADO',
         based: 'Kassel, GER // GMT + 1',
         background: '10+ años de trabajo social -> Full-Stack Dev',
-        status: 'abierto a nuevas oportunidades',
+        status: 'Full-Stack Dev @ helpely',
         section1Eyebrow: 'LA VERSIÓN LARGA',
         section1Heading: 'Un poco sobre mí',
         section1Body:
@@ -51,16 +51,24 @@ const es: DeepPartial<Dictionary> = {
         section3Heading: 'El camino',
         history: [
             {
+                year: '09/2026 - hoy',
+                title: 'Desarrollador Full-Stack @ helpely',
+                url: 'https://www.helpely.de/',
+                description:
+                    'Desarrollo de la plataforma de una startup que conecta a quienes buscan ayuda con la institución social adecuada, y ofrece a las instituciones un espacio integral para presentar sus servicios y plazas libres.',
+            },
+            {
+                year: '09/2026 - hoy',
+                title: 'Miembro @ KI Hub Kassel',
+                url: 'https://kikassel.com/',
+                description:
+                    'Talleres, meetups y consultoría sobre IA: desde la integración de sistemas de IA hasta la programación asistida por IA y agéntica.',
+            },
+            {
                 year: '2026',
                 title: 'Bootcamp completado',
                 description:
                     'Certificación en desarrollo de apps y web full-stack (MERN Stack) — proyectos propios, desde gestión de clientes hasta apps de seguimiento de salud, desarrollados y desplegados.',
-            },
-            {
-                year: '2025 - hoy',
-                title: 'Bootcamp y primeros proyectos',
-                description:
-                    'Bootcamp intensivo centrado en el MERN Stack, el código limpio y el uso de IA generativa para la automatización y como asistente de código. En paralelo, desarrollo de aplicaciones full-stack propias.',
             },
             {
                 year: '2014 - hoy',
